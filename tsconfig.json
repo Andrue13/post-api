@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "module": "CommonJS",
+        // "baseUrl": "./",
+        "outDir": "dist",
+        "rootDir": "src",
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "target": "ES2020",
+        "strict": true,
+        "typeRoots": [
+            "./src/@types",
+            "./node_modules/@types"
+        ]
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"],
+    // "ts-node": {
+    //     // "baseUrl": "./",
+    //     "rootDir": 
+    // }
+}
