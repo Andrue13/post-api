@@ -44,10 +44,8 @@ usersRouter.get('/:userId', verifyToken, async (req, res) => {
         })
         if (user) res.send(user)
         else res.status(404).send({
-            message: 'Cannot find this PostID'
+            message: 'Cannot find this UserID'
         })
-        res.send(user)
-        res.send(user)
     } else {
         res.status(400).send({ message: "Wrong userID" })
     }
@@ -101,12 +99,23 @@ usersRouter.patch('/:userId', verifyToken, async (req, res, next) => {
 })
 
 //Delete
-usersRouter.delete('/:userId', async (req, res) => {
-    if (req.user?.id !== userId.data && req.user?.isAdmin !== true) return res.status(403).send({
-        message: 'No permisions'
+usersRouter.delete('/:userId', verifyToken, async (req, res) => {
+    if (!req.user) return res.status(401).send({
+        message: "Wrong token"
     })
     const schemaUserId = z.number()
     const userId = await schemaUserId.parseAsync(+req.params.userId)
+    const existedUserDB = await db.user.delete({
+        where: {
+            id: +userId
+        }
+    })
+    if (!existedUserDB) return res.status(404).send({
+        message: "Wrong UserID"
+    })
+    if (req.user.id !== existedUserDB.id && req.user.isAdmin !== true) return res.status(403).send({
+        message: 'No permisions'
+    })
     const removedUser = await db.user.delete({
         where: {
             id: +userId

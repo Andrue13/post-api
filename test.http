@@ -3,7 +3,7 @@ GET http://localhost:3333/api/posts?skip=4&limit=9
 
 ###
 
-GET http://localhost:3333/api/posts/14
+GET http://localhost:3333/api/posts/11
 
 ###
 
@@ -16,24 +16,23 @@ Post http://localhost:3333/api/posts
 Content-Type: application/json
 
 {
-    "title": "Post 123",
-    "text": "Some text param 14Elena", 
-    "userId": 3 
+    "title": "Post api 1234",
+    "text": "Some text param FROM api1234", 
 }
 
 ###
 
-PATCH  http://localhost:3333/api/posts/366
+PATCH  http://localhost:3333/api/posts/15
 Content-Type: application/json
 
 {
-    "title": "Post API",
-    "text": "Some text 44" 
+    "title": "Post API Deleted",
+    "text": "Some text param FROM api13456" 
 }
 
 ###
 
-DELETE   http://localhost:3333/api/posts/177
+DELETE   http://localhost:3333/api/posts/39
 
 ###Users
 
@@ -45,7 +44,7 @@ GET http://localhost:3333/api/users
 
 ###
 
-GET http://localhost:3333/api/users/14
+GET http://localhost:3333/api/users/2
 
 ###
 
@@ -53,25 +52,25 @@ Post http://localhost:3333/api/users
 Content-Type: application/json
 
 {
-    "email": "andMAD@mail.ru",
-    "name": "MAD",
-    "password": "wordwordword13"
+    "email": "MAD13145@mail.ru",
+    "name": "MADANDD",
+    "password": "12134"
 }
 
 ###
 
-PATCH  http://localhost:3333/api/users/14
+PATCH  http://localhost:3333/api/users/30
 Content-Type: application/json
 
 {
-    "email": "MAD@mail.ru",
+    "email": "MAD13456@mail.ru",
     "name": "MAD",
-    "password": "11111"
+    "password": "1213"
 }
 
 ###
 
-DELETE   http://localhost:3333/api/users/10444
+DELETE   http://localhost:3333/api/users/29
 
 ###
 
@@ -89,8 +88,8 @@ POST http://localhost:3333/api/signup
 Content-Type: application/json
 
 {
-    "email": "1111451@mail.ru",
-    "name": "Alex",
+    "email": "Andriy@ukr.ua",
+    "name": "Andriy",
     "password": "12345"
 }
 

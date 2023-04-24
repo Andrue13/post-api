@@ -5,7 +5,12 @@ import { errorHandler } from './errorHandler'
 import { usersRouter } from './routes/users'
 import { authRouter } from './routes/authRouter'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 const app = express()
+// app.use(cors({
+//     origin: ['http://localhost:5173']
+
+// }))
 
 // body parser (json)
 app.use(express.json())

@@ -12,18 +12,35 @@ postsRouter.get('/',  async (req, res) => {
     if (typeof skip === 'string' && typeof limit === 'string') {
         const posts = await db.post.findMany({
             skip: +skip,
-            take: +limit
+            take: +limit,
+            include: {
+                User: {
+                    select: {
+                        name: true,
+                        email: true
+                    }
+                }
+            }
         })
         res.send(posts)
     } else {
-        const allPosts = await db.post.findMany()
+        const allPosts = await db.post.findMany({
+            include: {
+                User: {
+                    select: {
+                        name: true,
+                        email: true
+                    }
+                }
+            }  
+        })
         res.send(allPosts)
     }
 })
 
 //Read
 // '/api/posts/12345'
-postsRouter.get('/:postId', verifyToken, async (req, res) => {
+postsRouter.get('/:postId', async (req, res) => {
     // const postId = req.params.id
     const schema = z.number()
     const postId = await schema.safeParseAsync(+req.params.postId)
@@ -31,13 +48,20 @@ postsRouter.get('/:postId', verifyToken, async (req, res) => {
         const post = await db.post.findUnique({
             where: {
                 id: postId.data
+            },
+            include: {
+                User: {
+                    select: {
+                        name: true,
+                        email: true
+                    }
+                }
             }
         })
         if (post) res.send(post)
         else res.status(404).send({
             message: 'Cannot find this PostID'
         })
-        res.send(post)
     } else {
         res.status(400).send({ message: "Wrong PostID" })
     }
@@ -101,7 +125,7 @@ postsRouter.patch('/:postId', verifyToken, async (req, res, next) => {
 
 //Delete
 postsRouter.delete('/:postId', verifyToken, async (req, res) => {
-     if (!req.user) return res.status(401).send({
+    if (!req.user) return res.status(401).send({
         message: "Wrong token"
     })
     const schemaPostId = z.number()
